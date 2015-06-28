@@ -1,0 +1,15 @@
+// Scale Double (ctrl alt 2)
+
+#import 'elegantchaos.js'
+
+com.elegantchaos.execute(function() {
+	var selected = doc.selectedLayers()[0];
+
+	var midX = selected.frame().midX();
+	var midY = selected.frame().midY();
+
+	selected.multiplyBy(2);
+
+	selected.frame().midX = midX
+	selected.frame().midY = midY
+});

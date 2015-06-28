@@ -1,0 +1,25 @@
+{
+  "name" : "Rename Layers",
+  "description" : "Rename multiple layers at once",
+  "author": "Seb Jachec",
+  "authorEmail" : "sjachec1@gmail.com",
+  "version": 1.0,
+  "identifier": "me.sebj.rename-layers",
+  "compatibleVersion": 3.3,
+  "commands" : [
+    {
+      "script" : "script.cocoascript",
+      "handler" : "onRun",
+      "shortcut" : "control command r",
+      "name" : "Rename Layers",
+      "identifier" : "rename-layers"
+    }
+  ],
+  "menu" : {
+    "isRoot": true,
+    "items" : [
+      "rename-layers"
+    ],
+    "title" : "Rename Layers"
+  }
+}

@@ -1,0 +1,25 @@
+// Paste and Swap (ctrl alt command v)
+
+#import 'elegantchaos.js'
+
+com.elegantchaos.execute(function() {
+	var first_object  = doc.selectedLayers()[0];
+
+	com.elegantchaos.sendAction('paste:');
+
+	var pasted_object = doc.selectedLayers()[0];
+
+	var first_position  = {
+		x: first_object.frame().x(),
+		y: first_object.frame().y(),
+		width: first_object.frame().width(),
+		height: first_object.frame().height()
+	};
+
+	pasted_object.frame().x = first_position.x;
+	pasted_object.frame().y = first_position.y;
+	pasted_object.frame().width = first_position.width;
+	pasted_object.frame().height = first_position.height;
+
+	[first_object removeFromParent];
+});

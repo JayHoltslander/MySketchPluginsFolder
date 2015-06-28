@@ -1,0 +1,73 @@
+// Shows a dialog with all actions available from Color Inventory (control alt cmd c)
+
+#import 'inventory.js'
+
+var action = chooseAction();
+action.run(action.params);
+
+function chooseAction() {
+
+	var actions = [];
+
+	if (hasColorInventory()) {
+		actions.push({
+			name: "Update",
+			run: com.getflourish.colorInventory.generate
+		},
+		{
+			name: "Export",
+			run: com.getflourish.colorInventory.export,
+			params: "colors.json"
+		});
+	} else {
+		actions.push({
+			name: "Generate",
+			run: com.getflourish.colorInventory.generate
+		});
+	}
+
+	actions.push(
+		{
+			name: "Import from URL…",
+			run: com.getflourish.colorInventory.importFromURL
+		},
+		{
+			name: "Import from File…",
+			run: com.getflourish.colorInventory.import
+		}
+	);
+
+	// populate options
+	var options = [];
+
+	for  (var i = 0; i < actions.length; i++) {
+		options.push(actions[i].name)
+	}
+
+	// create the dialog with drop down
+	var choice = com.getflourish.common.createSelect('Color Inventory', options, 0)
+
+	// get the choice
+	var index = choice[1];
+
+	// return the action
+	var action = actions[index];
+	return action;
+}
+
+function exportColors () {
+	com.getflourish.colorInventory.export("colors.json");
+}
+
+function hasColorInventory () {
+	// setup predicate
+	var predicate = NSPredicate.predicateWithFormat("name == %@", com.getflourish.config.colorInventoryName);
+
+	// get the color artboard
+	var result = doc.currentPage().artboards().filteredArrayUsingPredicate(predicate);
+	if (result.count() != 0) {
+		return true;
+	} else {
+		return false;
+	}
+}

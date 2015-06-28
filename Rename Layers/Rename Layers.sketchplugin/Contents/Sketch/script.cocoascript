@@ -1,0 +1,17 @@
+var onRun = function(context) {
+    var doc = context.document
+    var selection = context.selection
+
+    if (selection.count() == 0) {
+        doc.showMessage("Please select one or more items.")
+        return
+
+    } else {
+        var newName = doc.askForUserInput_initialValue("New layer name", selection[0].name())
+
+        var loop = selection.objectEnumerator()
+        while (layer = loop.nextObject()) {
+            layer.setName(newName)
+        }
+    }
+};
